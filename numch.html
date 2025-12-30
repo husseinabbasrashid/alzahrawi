@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام التحويل السيبراني | Cyber Security</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Cairo:wght@400;700&display=swap');
+
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --dark-bg: #020617;
+            --glass-bg: rgba(15, 23, 42, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--dark-bg);
+            font-family: 'Cairo', sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* خلفية الأنيميشن */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+        }
+
+        /* الهيدر */
+        header {
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .logo-box {
+            width: 90px;
+            height: 90px;
+            border: 2px solid var(--neon-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 243, 255, 0.05);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            transition: 0.5s;
+            overflow: hidden;
+        }
+
+        .logo-box:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        .logo-box img { width: 70%; height: auto; object-fit: contain; }
+
+        .title-container {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .title-container h1 {
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        /* بطاقة المحول */
+        .main-card {
+            margin-top: 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            padding: 40px;
+            border-radius: 25px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .main-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        .input-wrapper {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .input-wrapper label {
+            display: block;
+            color: var(--neon-blue);
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.3rem;
+            font-family: 'Orbitron', monospace;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 20px rgba(188, 19, 254, 0.4);
+            background: rgba(188, 19, 254, 0.05);
+        }
+
+        /* تذييل الصفحة */
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 2px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <header>
+        <div class="logo-box">
+            <img src="https://alzahu.edu.iq/localfile/logo.png?v=1.5" alt="جامعة"> </div>
+        <div class="title-container">
+            <h1>CYBER CONVERTER</h1>
+            <p style="font-size: 0.8rem; color: var(--neon-purple);">نظام الأمن السيبراني لتحليل الأعداد</p>
+        </div>
+        <div class="logo-box">
+            <img src="https://alzahu.edu.iq/localfile/logo.png?v=1.5" alt="أمن سيبراني"> </div>
+    </header>
+
+    <div class="main-card">
+        <div class="input-wrapper">
+            <label>Decimal Base (10)</label>
+            <input type="number" id="dec" placeholder="أدخل عدد عشري">
+        </div>
+        <div class="input-wrapper">
+            <label>Hexadecimal Base (16)</label>
+            <input type="text" id="hex" placeholder="FF">
+        </div>
+        <div class="input-wrapper">
+            <label>Octal Base (8)</label>
+            <input type="number" id="oct" placeholder="777">
+        </div>
+        <div class="input-wrapper">
+            <label>Binary Base (2)</label>
+            <input type="text" id="bin" placeholder="1010">
+        </div>
+    </div>
+
+    <footer>DEPARTMENT OF CYBER SECURITY &copy; 2024</footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // إعداد الجزيئات (Particles)
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#00f3ff" },
+                shape: { type: "polygon", polygon: { nb_sides: 3 } }, // مثلثات
+                opacity: { value: 0.2, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#00f3ff", opacity: 0.1, width: 1 },
+                move: { enable: true, speed: 2, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } }
+            }
+        });
+
+        // منطق التحويل
+        const inputs = {
+            dec: document.getElementById('dec'),
+            hex: document.getElementById('hex'),
+            oct: document.getElementById('oct'),
+            bin: document.getElementById('bin')
+        };
+
+        function convert(value, fromBase) {
+            if (value === "") {
+                Object.values(inputs).forEach(i => i.value = "");
+                return;
+            }
+
+            let decimalValue = parseInt(value, fromBase);
+            if (isNaN(decimalValue)) return;
+
+            if (fromBase !== 10) inputs.dec.value = decimalValue;
+            if (fromBase !== 16) inputs.hex.value = decimalValue.toString(16).toUpperCase();
+            if (fromBase !== 8)  inputs.oct.value = decimalValue.toString(8);
+            if (fromBase !== 2)  inputs.bin.value = decimalValue.toString(2);
+        }
+
+        inputs.dec.addEventListener('input', (e) => convert(e.target.value, 10));
+        inputs.hex.addEventListener('input', (e) => convert(e.target.value, 16));
+        inputs.oct.addEventListener('input', (e) => convert(e.target.value, 8));
+        inputs.bin.addEventListener('input', (e) => convert(e.target.value, 2));
+    </script>
+</body>
+</html>
