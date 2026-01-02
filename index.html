@@ -3,235 +3,418 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام التحويل السيبراني | Cyber Security</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Cairo:wght@400;700&display=swap');
+    <title>Cyber Converter | نظام التحويل الرقمي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <style>
         :root {
-            --neon-blue: #00f3ff;
-            --neon-purple: #bc13fe;
-            --dark-bg: #020617;
-            --glass-bg: rgba(15, 23, 42, 0.7);
+            --bg: #050505;
+            --card-bg: rgba(20, 25, 35, 0.7);
+            --primary: #00f2ff; /* Cyan Neon */
+            --accent: #bc13fe;  /* Purple Neon */
+            --error: #ff3b3b;
+            --text-main: #e0e6ed;
+            --font-ar: 'Cairo', sans-serif;
+            --font-tech: 'Share Tech Mono', monospace;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { box-sizing: border-box; outline: none; }
 
         body {
-            height: 100vh;
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-ar);
+            overflow-x: hidden;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            background-color: var(--dark-bg);
-            font-family: 'Cairo', sans-serif;
-            color: white;
-            overflow: hidden;
         }
 
-        /* خلفية الأنيميشن */
-        #particles-js {
+        /* خلفية شبكية متحركة */
+        #bg-canvas {
             position: fixed;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
         }
 
         /* الهيدر */
         header {
-            width: 100%;
-            padding: 20px 50px;
+            padding: 20px 5%;
+            background: rgba(5, 5, 5, 0.9);
+            border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+            backdrop-filter: blur(10px);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 10;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
         }
 
-        .logo-box {
-            width: 90px;
-            height: 90px;
-            border: 2px solid var(--neon-blue);
-            border-radius: 50%;
+        .brand {
             display: flex;
             align-items: center;
-            justify-content: center;
-            background: rgba(0, 243, 255, 0.05);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
-            transition: 0.5s;
-            overflow: hidden;
+            gap: 15px;
         }
 
-        .logo-box:hover {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 0 30px var(--neon-blue);
+        .logo-glow {
+            width: 50px; height: 50px;
+            filter: drop-shadow(0 0 8px var(--primary));
         }
 
-        .logo-box img { width: 70%; height: auto; object-fit: contain; }
-
-        .title-container {
-            text-align: center;
-            font-family: 'Orbitron', sans-serif;
+        .titles h1 {
+            margin: 0;
+            font-size: 1.4rem;
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
         }
 
-        .title-container h1 {
-            font-size: 1.5rem;
-            letter-spacing: 3px;
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        /* بطاقة المحول */
-        .main-card {
-            margin-top: 30px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(0, 243, 255, 0.2);
-            padding: 40px;
-            border-radius: 25px;
-            width: 90%;
-            max-width: 600px;
-            position: relative;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
-        }
-
-        .main-card::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
-            animation: scan 3s linear infinite;
-        }
-
-        @keyframes scan {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
-
-        .input-wrapper {
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .input-wrapper label {
-            display: block;
-            color: var(--neon-blue);
+        .titles span {
             font-size: 0.8rem;
-            margin-bottom: 8px;
-            text-transform: uppercase;
+            color: #8892b0;
             letter-spacing: 1px;
         }
 
-        .input-wrapper input {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.4);
+        /* المحتوى الرئيسي */
+        main {
+            flex: 1;
+            padding: 40px 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .converter-panel {
+            background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 20px;
-            border-radius: 12px;
-            color: white;
-            font-size: 1.3rem;
-            font-family: 'Orbitron', monospace;
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 800px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* تأثير الخط المتحرك العلوي */
+        .converter-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: scanline 3s linear infinite;
+        }
+        @keyframes scanline { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 15px;
+        }
+
+        .clear-btn {
+            background: rgba(255, 59, 59, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(255, 59, 59, 0.3);
+            padding: 5px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-ar);
             transition: 0.3s;
-            outline: none;
+        }
+        .clear-btn:hover { background: var(--error); color: #000; box-shadow: 0 0 15px var(--error); }
+
+        /* شبكة المدخلات */
+        .grid-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
 
-        .input-wrapper input:focus {
-            border-color: var(--neon-purple);
-            box-shadow: 0 0 20px rgba(188, 19, 254, 0.4);
-            background: rgba(188, 19, 254, 0.05);
+        .input-group {
+            position: relative;
         }
 
-        /* تذييل الصفحة */
+        .label-box {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            background: rgba(188, 19, 254, 0.15);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: var(--font-tech);
+            font-size: 0.75rem;
+            border: 1px solid rgba(188, 19, 254, 0.3);
+        }
+
+        .input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .prefix {
+            position: absolute;
+            left: 15px;
+            color: #666;
+            font-family: var(--font-tech);
+            user-select: none;
+            direction: ltr;
+        }
+
+        input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            color: var(--primary);
+            padding: 15px 15px 15px 50px; /* مساحة للبادئة */
+            border-radius: 8px;
+            font-family: var(--font-tech);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            direction: ltr; /* الأرقام دائماً من اليسار لليمين */
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.15);
+            background: rgba(0, 242, 255, 0.02);
+        }
+
+        /* زر النسخ */
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            background: transparent;
+            border: none;
+            color: #555;
+            cursor: pointer;
+            transition: 0.3s;
+            padding: 8px;
+        }
+        .copy-btn:hover { color: var(--text-main); transform: scale(1.1); }
+
+        /* رسالة خطأ */
+        .error-shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; border-color: var(--error) !important; }
+        @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
+
         footer {
-            margin-top: auto;
+            text-align: center;
             padding: 20px;
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.4);
-            letter-spacing: 2px;
+            color: #555;
+            font-size: 0.8rem;
+            font-family: var(--font-tech);
         }
-
     </style>
 </head>
 <body>
 
-    <div id="particles-js"></div>
+    <canvas id="bg-canvas"></canvas>
 
     <header>
-        <div class="logo-box">
-            <img src="https://alzahu.edu.iq/localfile/logo.png?v=1.5" alt="جامعة"> </div>
-        <div class="title-container">
-            <h1>CYBER CONVERTER</h1>
-            <p style="font-size: 0.8rem; color: var(--neon-purple);">نظام الأمن السيبراني لتحليل الأعداد</p>
+        <div class="brand">
+            <img src="https://alzahu.edu.iq/localfile/logo.png?v=1.5" alt="Logo" class="logo-glow">
+            <div class="titles">
+                <h1>جامعة الزهراوي</h1>
+                <span>كلية الهندسة -هندسة الأمن السيبراني</span>
+            </div>
         </div>
-        <div class="logo-box">
-            <img src="https://alzahu.edu.iq/localfile/logo.png?v=1.5" alt="أمن سيبراني"> </div>
+        <div style="direction: ltr; font-family: var(--font-tech); color: var(--accent);">
+            System: <span style="color:var(--success)">نضام التحويل الرقمي</span>
+        </div>
     </header>
 
-    <div class="main-card">
-        <div class="input-wrapper">
-            <label>Decimal Base (10)</label>
-            <input type="number" id="dec" placeholder="أدخل عدد عشري">
-        </div>
-        <div class="input-wrapper">
-            <label>Hexadecimal Base (16)</label>
-            <input type="text" id="hex" placeholder="FF">
-        </div>
-        <div class="input-wrapper">
-            <label>Octal Base (8)</label>
-            <input type="number" id="oct" placeholder="777">
-        </div>
-        <div class="input-wrapper">
-            <label>Binary Base (2)</label>
-            <input type="text" id="bin" placeholder="1010">
-        </div>
-    </div>
+    <main>
+        <div class="converter-panel">
+            <div class="panel-header">
+                <div style="font-size: 1.2rem; font-weight: bold; color: var(--text-main);">
+                    <i class="fas fa-terminal" style="color: var(--primary); margin-left:10px;"></i> وحدة المعالجة
+                </div>
+                <button class="clear-btn" onclick="clearAll()">
+                    <i class="fas fa-trash-alt"></i> مسح البيانات
+                </button>
+            </div>
 
-    <footer>DEPARTMENT OF CYBER SECURITY &copy; 2024</footer>
+            <div class="grid-inputs">
+                
+                <div class="input-group">
+                    <div class="label-box">
+                        <label>Decimal (عشري)</label>
+                        <span class="badge">Base 10</span>
+                    </div>
+                    <div class="input-container">
+                        <span class="prefix">DEC</span>
+                        <input type="text" id="dec" placeholder="0-9" oninput="validateAndConvert(this, 10)">
+                        <button class="copy-btn" onclick="copyToClipboard('dec')"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+                <div class="input-group">
+                    <div class="label-box">
+                        <label>Binary (ثنائي)</label>
+                        <span class="badge">Base 2</span>
+                    </div>
+                    <div class="input-container">
+                        <span class="prefix">BIN</span>
+                        <input type="text" id="bin" placeholder="0-1" oninput="validateAndConvert(this, 2)">
+                        <button class="copy-btn" onclick="copyToClipboard('bin')"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="label-box">
+                        <label>Hexadecimal (سداسي عشر)</label>
+                        <span class="badge">Base 16</span>
+                    </div>
+                    <div class="input-container">
+                        <span class="prefix">HEX</span>
+                        <input type="text" id="hex" placeholder="0-9, A-F" oninput="validateAndConvert(this, 16)">
+                        <button class="copy-btn" onclick="copyToClipboard('hex')"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="label-box">
+                        <label>Octal (ثماني)</label>
+                        <span class="badge">Base 8</span>
+                    </div>
+                    <div class="input-container">
+                        <span class="prefix">OCT</span>
+                        <input type="text" id="oct" placeholder="0-7" oninput="validateAndConvert(this, 8)">
+                        <button class="copy-btn" onclick="copyToClipboard('oct')"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+         DEPARTMENT OF CYBER SECURITY &copy; 2026
+    </footer>
+
     <script>
-        // إعداد الجزيئات (Particles)
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: "#00f3ff" },
-                shape: { type: "polygon", polygon: { nb_sides: 3 } }, // مثلثات
-                opacity: { value: 0.2, random: true },
-                size: { value: 3, random: true },
-                line_linked: { enable: true, distance: 150, color: "#00f3ff", opacity: 0.1, width: 1 },
-                move: { enable: true, speed: 2, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
-            },
-            interactivity: {
-                detect_on: "canvas",
-                events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } }
-            }
-        });
+        /* --- 1. الخلفية المتحركة (نفس ستايل الموقع السابق) --- */
+        const canvas = document.getElementById("bg-canvas");
+        const ctx = canvas.getContext("2d");
+        let particles = [];
 
-        // منطق التحويل
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.floor(window.innerWidth / 15);
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    size: Math.random() * 2
+                });
+            }
+        }
+
+        function animateBg() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(0, 242, 255, 0.3)";
+            
+            particles.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+            });
+            requestAnimationFrame(animateBg);
+        }
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas(); animateBg();
+
+        /* --- 2. منطق التحويل والتحقق --- */
         const inputs = {
             dec: document.getElementById('dec'),
+            bin: document.getElementById('bin'),
             hex: document.getElementById('hex'),
-            oct: document.getElementById('oct'),
-            bin: document.getElementById('bin')
+            oct: document.getElementById('oct')
         };
 
-        function convert(value, fromBase) {
+        // تعبيرات نمطية للتحقق من المدخلات
+        const patterns = {
+            2: /[^0-1]/g,
+            8: /[^0-7]/g,
+            10: /[^0-9]/g,
+            16: /[^0-9a-fA-F]/g
+        };
+
+        function validateAndConvert(element, base) {
+            let value = element.value;
+
+            // 1. التحقق وحذف الرموز غير المسموحة
+            if (patterns[base].test(value)) {
+                element.classList.add('error-shake');
+                setTimeout(() => element.classList.remove('error-shake'), 500);
+                value = value.replace(patterns[base], ''); // حذف الحرف الخاطئ
+                element.value = value;
+            }
+
+            // 2. التحويل
             if (value === "") {
-                Object.values(inputs).forEach(i => i.value = "");
+                clearAll(false); // مسح البقية دون مسح العنصر الحالي (لأنه فارغ أصلاً)
                 return;
             }
 
-            let decimalValue = parseInt(value, fromBase);
-            if (isNaN(decimalValue)) return;
+            // تحويل القيمة المدخلة إلى رقم عشري (كوسيط)
+            const decimalValue = parseInt(value, base);
 
-            if (fromBase !== 10) inputs.dec.value = decimalValue;
-            if (fromBase !== 16) inputs.hex.value = decimalValue.toString(16).toUpperCase();
-            if (fromBase !== 8)  inputs.oct.value = decimalValue.toString(8);
-            if (fromBase !== 2)  inputs.bin.value = decimalValue.toString(2);
+            if (!isNaN(decimalValue)) {
+                updateInputs(decimalValue, base);
+            }
         }
 
-        inputs.dec.addEventListener('input', (e) => convert(e.target.value, 10));
-        inputs.hex.addEventListener('input', (e) => convert(e.target.value, 16));
-        inputs.oct.addEventListener('input', (e) => convert(e.target.value, 8));
-        inputs.bin.addEventListener('input', (e) => convert(e.target.value, 2));
+        function updateInputs(decimalVal, sourceBase) {
+            // تحديث الحقول الأخرى بناءً على القيمة العشرية
+            if (sourceBase !== 10) inputs.dec.value = decimalVal.toString(10);
+            if (sourceBase !== 2)  inputs.bin.value = decimalVal.toString(2);
+            if (sourceBase !== 8)  inputs.oct.value = decimalVal.toString(8);
+            if (sourceBase !== 16) inputs.hex.value = decimalVal.toString(16).toUpperCase();
+        }
+
+        function clearAll(clearUI = true) {
+            if(clearUI) {
+                Object.values(inputs).forEach(input => input.value = "");
+            }
+        }
+
+        /* --- 3. وظيفة النسخ --- */
+        function copyToClipboard(id) {
+            const el = document.getElementById(id);
+            if(el.value) {
+                el.select();
+                navigator.clipboard.writeText(el.value);
+                
+                // تأثير بصري بسيط عند النسخ
+                const btn = el.nextElementSibling;
+                const originalIcon = btn.innerHTML;
+                btn.innerHTML = "<i class='fas fa-check' style='color:var(--success)'></i>";
+                setTimeout(() => btn.innerHTML = originalIcon, 1500);
+            }
+        }
     </script>
 </body>
 </html>
